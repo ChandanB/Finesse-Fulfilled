@@ -16,11 +16,9 @@ class AllMusicViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Finesse"
-        navigationController?.title = "Finesse"
-        navigationItem.titleView?.tintColor = UIColor.white
+       
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+         self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
         
@@ -31,22 +29,16 @@ class AllMusicViewController: UICollectionViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    func choosePlaylist() {
+        print("pressed")
+        let songController = SongListTableViewController()
+        let navController = UINavigationController(rootViewController: songController)
+        present(navController, animated: true, completion: nil)
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -55,9 +47,11 @@ class AllMusicViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.choosePlaylist))
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! musicSelectionViewCell
         cell.musicImageView.image = UIImage(named: playlistArtArray[indexPath.row])
-        cell.musicButtonCounterpart.isEnabled = true
+        cell.musicButtonCounterpart.addGestureRecognizer(tap)
         
         return cell
     }
@@ -67,6 +61,7 @@ class AllMusicViewController: UICollectionViewController {
     
     // Uncomment this method to specify if the specified item should be highlighted during tracking
     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+    
         return true
     }
  
@@ -77,11 +72,6 @@ class AllMusicViewController: UICollectionViewController {
         return true
     }
  
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.dismiss(animated: true, completion: nil)
-        }
-
-
     
 //     Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
@@ -93,11 +83,9 @@ class AllMusicViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-        self.dismiss(animated: true, completion: nil)
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! musicSelectionViewCell
+        
     }
     
-    func goToPlaylist() {
-        self.dismiss(animated: true, completion: nil)
-    }
-
 }

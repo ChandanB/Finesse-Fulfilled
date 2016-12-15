@@ -8,10 +8,14 @@
 
 class Song {
     
-    let name: String
-    
-    init(name: String){
+    init(name: String, trackName: String, imageArt: String){
         self.name = name
+        self.trackName = trackName
+        self.imageArt = imageArt
     }
+    
+    let name: String
+    let trackName: String
+    let imageArt: String
     
 }
